@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>THE FLIP LOUNGE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root{--o:#FF5C00;--og:rgba(255,92,0,0.6);--w:#FAFAFA;--g:#888;--d:#080808;--cb:rgba(255,255,255,0.03);--cd:rgba(255,255,255,0.07)}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{background:var(--d);color:var(--w);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none}
+    .cur{position:fixed;width:12px;height:12px;background:var(--o);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference}
+    .curt{position:fixed;width:40px;height:40px;border:1px solid rgba(255,92,0,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s}
+    #bgc{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:24px 60px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(8,8,8,.6);border-bottom:1px solid var(--cd);transition:padding .3s}
+    nav.scrolled{padding:16px 60px}
+    .nl{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.15em;color:var(--w);text-decoration:none}
+    .nl span{color:var(--o)}
+    .nls{display:flex;align-items:center;gap:40px;list-style:none}
+    .nls a{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g);text-decoration:none;transition:color .2s;position:relative}
+    .nls a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--o);transition:width .3s}
+    .nls a:hover{color:var(--w)}
+    .nls a:hover::after{width:100%}
+    .bnav{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.2em;background:transparent;border:1px solid var(--o);color:var(--o);padding:10px 24px;cursor:none;transition:background .25s,color .25s,box-shadow .25s}
+    .bnav:hover{background:var(--o);color:var(--d);box-shadow:0 0 30px var(--og)}
+    section,header,footer{position:relative;z-index:1}
+    header{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 40px 80px;overflow:hidden}
+    .heb{font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.4em;color:var(--o);text-transform:uppercase;margin-bottom:24px;opacity:0;animation:fu .8s .2s forwards}
+    .ht{font-family:'Bebas Neue',sans-serif;font-size:clamp(80px,14vw,200px);line-height:.9;letter-spacing:.02em;opacity:0;animation:fu .9s .4s forwards}
+    .hto{color:var(--o);display:block;text-shadow:0 0 60px var(--og),0 0 120px rgba(255,92,0,.3)}
+    .hs{margin-top:32px;font-size:.9rem;font-weight:300;color:var(--g);letter-spacing:.08em;max-width:460px;line-height:1.8;opacity:0;animation:fu .9s .6s forwards}
+    .hcta{margin-top:52px;display:flex;gap:16px;justify-content:center;opacity:0;animation:fu .9s .8s forwards}
+    .bp{font-family:'Bebas Neue',sans-serif;letter-spacing:.2em;font-size:.95rem;background:var(--o);color:var(--d);border:none;padding:16px 44px;cursor:none;position:relative;overflow:hidden;transition:box-shadow .3s}
+    .bp::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:rgba(255,255,255,.25);transform:skewX(-20deg);transition:left .4s}
+    .bp:hover{box-shadow:0 0 50px var(--og)}
+    .bp:hover::before{left:150%}
+    .bg{font-family:'Bebas Neue',sans-serif;letter-spacing:.2em;font-size:.95rem;background:transparent;color:var(--w);border:1px solid rgba(255,255,255,.2);padding:16px 44px;cursor:none;transition:border-color .3s,color .3s}
+    .bg:hover{border-color:var(--o);color:var(--o)}
+    .hst{margin-top:80px;display:flex;gap:60px;justify-content:center;opacity:0;animation:fu .9s 1s forwards}
+    .stat{text-align:center}
+    .stn{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--o);line-height:1;text-shadow:0 0 20px var(--og)}
+    .stl{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g);margin-top:6px}
+    .si{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fi 1s 1.5s forwards}
+    .si span{font-size:.6rem;letter-spacing:.3em;color:var(--g);text-transform:uppercase}
+    .sl{width:1px;height:50px;background:linear-gradient(to bottom,var(--o),transparent);animation:sp 2s infinite}
+    .tw{overflow:hidden;border-top:1px solid var(--cd);border-bottom:1px solid var(--cd);padding:16px 0;background:rgba(255,92,0,.04)}
+    .ti{display:flex;white-space:nowrap;animation:tk 25s linear infinite}
+    .titem{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.2em;color:var(--o);padding:0 48px;opacity:.7}
+    .tsep{color:var(--g);padding:0 8px;font-size:.6rem;align-self:center}
+    .sw{padding:120px 60px;max-width:1400px;margin:0 auto}
+    .sl2{font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:.45em;text-transform:uppercase;color:var(--o);margin-bottom:16px}
+    .sh{font-family:'Bebas Neue',sans-serif;font-size:clamp(50px,7vw,100px);line-height:.95;letter-spacing:.02em}
+    .sh em{color:var(--o);font-style:normal}
+    .div{width:60px;height:2px;background:var(--o);box-shadow:0 0 12px var(--og)}
+    #features{padding:0}
+    .fi{padding:120px 60px;max-width:1400px;margin:0 auto}
+    .fh{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:80px}
+    .fg{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+    .fc{padding:48px 40px;background:var(--cb);border:1px solid var(--cd);position:relative;overflow:hidden;cursor:none;transition:border-color .3s,background .3s}
+    .fc::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(255,92,0,.08),transparent 70%);opacity:0;transition:opacity .4s}
+    .fc:hover{border-color:rgba(255,92,0,.4);background:rgba(255,92,0,.04)}
+    .fc:hover::before{opacity:1}
+    .fci{font-size:2rem;margin-bottom:24px;display:block}
+    .fn{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--o);letter-spacing:.3em;margin-bottom:16px;opacity:.6}
+    .ft{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.05em;margin-bottom:16px}
+    .fd{font-size:.85rem;line-height:1.8;color:var(--g);font-weight:300}
+    .fa{position:absolute;bottom:32px;right:32px;font-size:1.2rem;color:var(--o);opacity:0;transform:translate(-8px,8px);transition:opacity .3s,transform .3s}
+    .fc:hover .fa{opacity:1;transform:translate(0,0)}
+    #faq{background:rgba(255,255,255,.015)}
+    .faqg{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:60px}
+    .fqi{padding:40px;border:1px solid var(--cd);background:var(--cb);cursor:none;position:relative;overflow:hidden;transition:border-color .3s}
+    .fqi::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--o);transition:width .4s}
+    .fqi:hover{border-color:rgba(255,92,0,.3)}
+    .fqi:hover::after{width:100%}
+    .fqq{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.05em;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+    .fqq span{color:var(--o);font-size:1.4rem}
+    .fqa{font-size:.85rem;color:var(--g);line-height:1.9;font-weight:300}
+    .rs{display:flex;gap:24px;margin-top:60px;overflow-x:auto;padding-bottom:16px;scrollbar-width:none}
+    .rs::-webkit-scrollbar{display:none}
+    .rc{min-width:380px;padding:40px;border:1px solid var(--cd);background:var(--cb);position:relative;flex-shrink:0;transition:border-color .3s,transform .3s}
+    .rc:hover{border-color:rgba(255,92,0,.4);transform:translateY(-8px)}
+    .rh{font-family:'Share Tech Mono',monospace;font-size:.75rem;color:var(--o);margin-bottom:16px;letter-spacing:.1em}
+    .rt{font-size:.9rem;line-height:1.8;color:rgba(255,255,255,.7);font-weight:300}
+    .rf{font-size:1.4rem;margin-top:20px}
+    .rss{color:var(--o);font-size:.8rem;margin-bottom:12px;letter-spacing:.1em}
+    #socials{text-align:center;padding:120px 60px}
+    .soi{max-width:1400px;margin:0 auto}
+    .sog{display:grid;grid-template-columns:1fr 1fr;gap:2px;max-width:700px;margin:60px auto}
+    .soc{padding:48px;border:1px solid var(--cd);background:var(--cb);display:flex;flex-direction:column;align-items:center;gap:16px;cursor:none;text-decoration:none;color:inherit;transition:border-color .3s;position:relative;overflow:hidden}
+    .soc::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(255,92,0,.1),transparent 70%);opacity:0;transition:opacity .4s}
+    .soc:hover{border-color:rgba(255,92,0,.5)}
+    .soc:hover::before{opacity:1}
+    .soi2{font-size:2rem}
+    .soha{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.1em;color:var(--g);transition:color .3s}
+    .soc:hover .soha{color:var(--o)}
+    .soc2{display:inline-flex;align-items:center;gap:8px;font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;border:1px solid rgba(255,92,0,.4);color:var(--o);padding:12px 28px;background:rgba(255,92,0,.06);animation:pb 2.5s infinite}
+    .dot{width:6px;height:6px;background:var(--o);border-radius:50%;animation:bl 1.2s infinite}
+    footer{border-top:1px solid var(--cd);padding:48px 60px}
+    .foi{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:40px}
+    .fol{display:flex;flex-direction:column;gap:8px}
+    .foe{font-family:'Share Tech Mono',monospace;font-size:.8rem;color:var(--g);letter-spacing:.08em;text-decoration:none;transition:color .2s}
+    .foe:hover{color:var(--o)}
+    .foc{text-align:center}
+    .folo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.15em}
+    .folo span{color:var(--o)}
+    .focp{font-size:.7rem;color:rgba(255,255,255,.25);margin-top:8px;letter-spacing:.08em}
+    .for2{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+    .fli{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g);text-decoration:none;transition:color .2s}
+    .fli:hover{color:var(--o)}
+    @keyframes fu{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fi{from{opacity:0}to{opacity:.7}}
+    @keyframes sp{0%,100%{opacity:.3}50%{opacity:1}}
+    @keyframes tk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes pb{0%,100%{box-shadow:0 0 0 0 rgba(255,92,0,0)}50%{box-shadow:0 0 20px rgba(255,92,0,.4)}}
+    @keyframes bl{0%,100%{opacity:1}50%{opacity:.2}}
+    .rev{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
+    .rev.vis{opacity:1;transform:translateY(0)}
+    .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+    body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:998;opacity:.35}
+    @media(max-width:900px){nav{padding:20px 24px}.nls{display:none}.fi,.sw{padding:80px 24px}.fg{grid-template-columns:1fr}.fh{flex-direction:column;align-items:flex-start;gap:24px}.faqg{grid-template-columns:1fr}.sog{grid-template-columns:1fr}footer{padding:40px 24px}.foi{grid-template-columns:1fr;text-align:center}.for2{align-items:center}#socials{padding:80px 24px}.hst{gap:32px}}
+  </style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="curt" id="curt"></div>
+<canvas id="bgc"></canvas>
+<nav id="nav">
+  <a class="nl" href="#">THE FLIP<span>.</span>LOUNGE</a>
+  <ul class="nls">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#socials">Social</a></li>
+    <li><button class="bnav">Dashboard</button></li>
+  </ul>
+</nav>
+<header>
+  <p class="heb">// The Reseller's Ultimate Toolbox</p>
+  <h1 class="ht">THE FLIP<span class="hto">LOUNGE</span></h1>
+  <p class="hs">Exclusive tools, early links, and resell intelligence for those who play to win. Every release. Every flip.</p>
+  <div class="hcta">
+    <button class="bp">Join Now</button>
+    <button class="bg">Learn More</button>
+  </div>
+  <div class="hst">
+    <div class="stat"><div class="stn">2K+</div><div class="stl">Members</div></div>
+    <div class="stat"><div class="stn">$500K</div><div class="stl">Flipped</div></div>
+    <div class="stat"><div class="stn">99%</div><div class="stl">Success Rate</div></div>
+  </div>
+  <div class="si"><span>Scroll</span><div class="sl"></div></div>
+</header>
+<div class="tw">
+  <div class="ti">
+    <span class="titem">FREE ACO SLOTS</span><span class="tsep">✦</span><span class="titem">EARLY LINKS</span><span class="tsep">✦</span><span class="titem">RESELL GUIDES</span><span class="tsep">✦</span><span class="titem">MONITORS &amp; ALERTS</span><span class="tsep">✦</span><span class="titem">PROFITABLE FLIPS</span><span class="tsep">✦</span><span class="titem">SERVICE PROVIDERS</span><span class="tsep">✦</span><span class="titem">FREE ACO SLOTS</span><span class="tsep">✦</span><span class="titem">EARLY LINKS</span><span class="tsep">✦</span><span class="titem">RESELL GUIDES</span><span class="tsep">✦</span><span class="titem">MONITORS &amp; ALERTS</span><span class="tsep">✦</span><span class="titem">PROFITABLE FLIPS</span><span class="tsep">✦</span><span class="titem">SERVICE PROVIDERS</span><span class="tsep">✦</span>
+  </div>
+</div>
+<section id="features">
+  <div class="fi">
+    <div class="fh rev">
+      <div>
+        <div class="sl2">// 01 — Features</div>
+        <h2 class="sh">HIGH<br><em>QUALITY</em><br>FEATURES</h2>
+      </div>
+      <div class="div"></div>
+    </div>
+    <div class="fg">
+      <div class="fc rev d1"><div class="fn">01</div><span class="fci">🤖</span><h3 class="ft">Free ACO Slots</h3><p class="fd">Never miss another release. We deploy top-tier auto checkout bots so you get first dibs on every drop — before anyone else even loads the page.</p><span class="fa">↗</span></div>
+      <div class="fc rev d2"><div class="fn">02</div><span class="fci">📋</span><h3 class="ft">Resell Guides</h3><p class="fd">Made the cop — now what? Step-by-step walkthroughs for the fastest, most profitable path to flipping. Efficient, quick, effortless.</p><span class="fa">↗</span></div>
+      <div class="fc rev d3"><div class="fn">03</div><span class="fci">🔑</span><h3 class="ft">Service Providers</h3><p class="fd">The internet, unlocked. Food discounts, shipping labels at cost, eBay bots, proxy services — a full arsenal at your fingertips, 24/7.</p><span class="fa">↗</span></div>
+      <div class="fc rev d1"><div class="fn">04</div><span class="fci">⚡</span><h3 class="ft">Early Links / Restocks</h3><p class="fd">Buying hot drops manually? That's washing your car in the rain. We hand you add-to-cart links before items even go live. No contest.</p><span class="fa">↗</span></div>
+      <div class="fc rev d2"><div class="fn">05</div><span class="fci">🔔</span><h3 class="ft">Monitors &amp; Alerts</h3><p class="fd">Get pinged on every profitable release before it's announced elsewhere. Zero excuses for missing a hot drop — ever again.</p><span class="fa">↗</span></div>
+      <div class="fc rev d3"><div class="fn">06</div><span class="fci">💰</span><h3 class="ft">Profitable Resell Flips</h3><p class="fd">What to buy, when, how. Sneakers, streetwear, collectibles, tech — daily intel on the hottest, highest-margin items, every single day.</p><span class="fa">↗</span></div>
+    </div>
+  </div>
+</section>
+<section id="faq">
+  <div class="sw">
+    <div class="rev"><div class="sl2">// 02 — FAQ</div><h2 class="sh">FREQUENTLY<br><em>ASKED</em></h2></div>
+    <div class="faqg">
+      <div class="fqi rev d1"><div class="fqq">What is ACO? <span>+</span></div><p class="fqa">ACO (Auto Checkout) is a bot engineered for pure speed — it adds to cart, checks out, and purchases high-demand products like Supreme and Jordans before they sell out. Members get top-tier ACO access, free of charge.</p></div>
+      <div class="fqi rev d2"><div class="fqq">How much to start? <span>+</span></div><p class="fqa">As little as $20. We've seen members turn $20 into $100+ through smart flipping — letting the group pay for itself many times over within the first month.</p></div>
+      <div class="fqi rev d3"><div class="fqq">Will I make money? <span>+</span></div><p class="fqa">We provide the tools, intel, and community. Results depend on the effort you put in. We don't guarantee returns, but we guarantee every possible advantage.</p></div>
+      <div class="fqi rev d4"><div class="fqq">How do I sign up? <span>+</span></div><p class="fqa">Login with your Discord account on our dashboard. After completing checkout, you're automatically added to the group. The whole process takes under two minutes.</p></div>
+      <div class="fqi rev d1"><div class="fqq">Can I get a refund? <span>+</span></div><p class="fqa">We do not offer refunds under any circumstances. This is an intangible service — what is advertised is exactly what you receive the moment you join TheFlipLounge.</p></div>
+      <div class="fqi rev d2"><div class="fqq">Is my info protected? <span>+</span></div><p class="fqa">All information shared within the group is strictly confidential. Sharing intel outside the community is prohibited and will result in removal and potential legal action.</p></div>
+    </div>
+  </div>
+</section>
+<section id="reviews">
+  <div class="sw">
+    <div class="rev"><div class="sl2">// 03 — Reviews</div><h2 class="sh"><em>#REVIEWS</em><br>FROM THE LOUNGE</h2></div>
+    <div class="rs">
+      <div class="rc rev d1"><div class="rss">★ ★ ★ ★ ★</div><div class="rh">Vaas Media#0131</div><p class="rt">"giftedlean is a great dude, always takes the time to help the new people. Nobody left behind in this group. Real community vibes right here."</p><div class="rf">🔥</div></div>
+      <div class="rc rev d2"><div class="rss">★ ★ ★ ★ ★</div><div class="rh">SneakerFlip#4422</div><p class="rt">"Flipped my first pair of Jordans in 48 hours using the guide. Made back 3x the membership cost in my first week. Insane value."</p><div class="rf">🔥</div></div>
+      <div class="rc rev d3"><div class="rss">★ ★ ★ ★ ★</div><div class="rh">DripAlert#9901</div><p class="rt">"The early links channel is unreal. Got an ATC on a drop that sold out in 4 seconds on the main site. This place is the real deal."</p><div class="rf">🔥</div></div>
+      <div class="rc rev d4"><div class="rss">★ ★ ★ ★ ★</div><div class="rh">ResellKing#7733</div><p class="rt">"Best investment I made this year. The monitors catch restocks I would've 100% missed. Already up $400 profit in my first month."</p><div class="rf">🔥</div></div>
+      <div class="rc rev d5"><div class="rss">★ ★ ★ ★ ★</div><div class="rh">HypeHunter#0012</div><p class="rt">"Community is elite. Everyone shares W's and helps each other out. The service provider discounts alone cover the full membership fee."</p><div class="rf">🔥</div></div>
+    </div>
+  </div>
+</section>
+<section id="socials">
+  <div class="soi">
+    <div class="rev"><div class="sl2" style="text-align:center">// 04 — Community</div><h2 class="sh" style="text-align:center">VERIFIED<br><em>SUCCESS</em></h2></div>
+    <div class="sog">
+      <a href="https://www.instagram.com/thefliplounge" class="soc rev d1"><span class="soi2">📸</span><span class="soha">@TheFlipLounge</span><div class="soc2"><div class="dot"></div>Instagram</div></a>
+      <a href="https://twitter.com/tfliplounge" class="soc rev d2"><span class="soi2">🐦</span><span class="soha">@TFlipLounge</span><div class="soc2"><div class="dot"></div>Twitter / X</div></a>
+    </div>
+    <div style="margin-top:40px;text-align:center" class="rev">
+      <div class="soc2" style="font-size:.75rem;padding:16px 40px"><div class="dot"></div>MEMBERSHIP — SOLD OUT</div>
+      <p style="margin-top:20px;font-size:.75rem;color:var(--g);letter-spacing:.15em">Join the waitlist to be first when spots open</p>
+      <button class="bp" style="margin-top:24px">Join Waitlist</button>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="foi">
+    <div class="fol">
+      <a href="mailto:info@fliplounge.io" class="foe">info@fliplounge.io</a>
+      <p style="font-size:.65rem;color:rgba(255,255,255,.2);letter-spacing:.1em">Made with ❤️ by GR Solutions</p>
+    </div>
+    <div class="foc">
+      <div class="folo">THE FLIP<span>.</span>LOUNGE</div>
+      <p class="focp">© 2025 The Flip Lounge. All Rights Reserved.</p>
+    </div>
+    <div class="for2">
+      <a href="#" class="fli">Terms &amp; Conditions</a>
+      <a href="#" class="fli">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+<script>
+const cur=document.getElementById('cur'),curt=document.getElementById('curt');
+let mx=0,my=0,tx=0,ty=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function l(){tx+=(mx-tx)*.12;ty+=(my-ty)*.12;curt.style.left=tx+'px';curt.style.top=ty+'px';requestAnimationFrame(l)})();
+document.querySelectorAll('a,button,.fc,.fqi,.rc,.soc').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='20px';cur.style.height='20px';curt.style.width='60px';curt.style.height='60px';curt.style.borderColor='rgba(255,92,0,.9)'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';curt.style.width='40px';curt.style.height='40px';curt.style.borderColor='rgba(255,92,0,.5)'});
+});
+const canvas=document.getElementById('bgc'),ctx=canvas.getContext('2d');
+let W,H;
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+resize();window.addEventListener('resize',resize);
+const pts=Array.from({length:90},()=>({x:Math.random()*1920,y:Math.random()*1080,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,sz:Math.random()*1.5+.3,op:Math.random()*.35+.05,gl:Math.random()>.85}));
+let f=0;
+function draw(){
+  ctx.clearRect(0,0,W,H);f++;
+  const t=f*.003;
+  const g1=ctx.createRadialGradient(W*(.3+.12*Math.sin(t)),H*(.35+.1*Math.cos(t*.7)),0,W*.5,H*.5,W*.85);
+  g1.addColorStop(0,'rgba(255,92,0,.07)');g1.addColorStop(.6,'rgba(255,92,0,.01)');g1.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=g1;ctx.fillRect(0,0,W,H);
+  const g2=ctx.createRadialGradient(W*(.72+.1*Math.cos(t*1.3)),H*(.68+.1*Math.sin(t)),0,W*.7,H*.7,W*.55);
+  g2.addColorStop(0,'rgba(255,92,0,.05)');g2.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=g2;ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='rgba(255,255,255,.022)';ctx.lineWidth=1;
+  for(let x=0;x<W;x+=80){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
+  for(let y=0;y<H;y+=80){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+  pts.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+    if(p.gl){ctx.shadowBlur=10;ctx.shadowColor='rgba(255,92,0,.9)';ctx.fillStyle=`rgba(255,92,0,${p.op})`}
+    else{ctx.shadowBlur=0;ctx.fillStyle=`rgba(255,255,255,${p.op})`}
+    ctx.beginPath();ctx.arc(p.x,p.y,p.sz,0,Math.PI*2);ctx.fill();
+  });
+  ctx.shadowBlur=0;ctx.lineWidth=.5;
+  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+    const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+    if(d<110){ctx.globalAlpha=(1-d/110)*.25;ctx.strokeStyle='rgba(255,255,255,1)';ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.stroke()}
+  }
+  ctx.globalAlpha=1;
+  requestAnimationFrame(draw);
+}
+draw();
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
+const revs=document.querySelectorAll('.rev');
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}})},{threshold:.1});
+revs.forEach(r=>obs.observe(r));
+</script>
+</body>
+</html>
