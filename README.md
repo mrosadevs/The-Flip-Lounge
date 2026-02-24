@@ -10,6 +10,8 @@
 
 **A sleek, dark-themed marketplace and community platform for flippers — featuring bold typography, custom cursors, and electric orange accents.**
 
+> 🕰️ *Originally built in 2018, fresh out of high school. Reimagined and rebuilt from the ground up in 2026.*
+
 [🌐 Live Site](https://tfl.mrosadev.online)
 
 </div>
@@ -55,7 +57,7 @@
 
 ## 🚀 Getting Started
 
-No build step — single `index.html` file.
+No build step — pure static HTML/CSS/JS.
 
 ```bash
 # Just open it
@@ -71,7 +73,9 @@ npx serve .
 
 ```
 The-Flip-Lounge/
-├── 📄 index.html    # Full site — markup, styles, scripts
+├── 📄 index.html    # Page markup & structure
+├── 🎨 styles.css    # All styles & animations
+├── ⚡ script.js     # Canvas background, cursor, scroll effects
 └── 📖 README.md     # You're here
 ```
 
